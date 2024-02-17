@@ -12,11 +12,21 @@ const SignUp = () => {
 	});
 	console.log(inputs);
 
+	const handleCheckBoxChange = (gender) => {
+		setInputs((prevInputs) => ({
+			...prevInputs,
+			gender: gender
+		}))
+	}
+
 	const handleChange = (e) => {
 		setInputs((prevInputs) => ({
 			...prevInputs,
 			[e.target.name]: e.target.value
 		}));
+	}
+	const handleSubmit = (e) => {
+		e.preventDefault();
 	}
 	return (
 		<div className="flex flex-col items-center justify-center min-w-96 mx-auto">
@@ -75,7 +85,7 @@ const SignUp = () => {
 							onChange={handleChange}
 						/ >
 					</div>
-					<GenderCheckBox/>
+					<GenderCheckBox onCheckBoxChange={handleCheckBoxChange} selectedGender={inputs.gender}/>
 					<Link to="/login" className="text-sm hove:underline hover:text-yellow-600 mt-1 inline-block">
 						Already have an account?
 					</Link>
