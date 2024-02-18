@@ -96,7 +96,9 @@ const SignUp = () => {
 						Already have an account?
 					</Link>
 					<div>
-						<button type="submit" className="btn btn-block mt-3 btn-md">sign up</button>
+						<button disable={loading} type="submit" className="btn btn-block mt-3 btn-md">
+							{loading ? 'Signing up...' : 'Sign Up'}
+						</button>
 					</div>
 				</form>
 			</div>
