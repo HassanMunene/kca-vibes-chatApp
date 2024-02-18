@@ -1,6 +1,18 @@
+import { useState } from 'react';
+import { useLogin } from '../../hooks/useLogin'
 import { Link } from 'react-router-dom';
 
+
 const Login = () => {
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+	const {loading, login} = useLogin();
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		await login(username, password);
+	}
+	
 	return (
 		<div className="flex flex-col items-center justify-center min-w-96 mx-auto">
 			<div className="w-full p-6 rounded-lg shadow-md bg-gray-600">
@@ -8,14 +20,16 @@ const Login = () => {
 					Login
 					<span className="text-yellow-500"> KcaVibes</span>
 				</h1>
-				<form>
+				<form onSubmit={handleSubmit}>
 					<div className="usernameContainer">
 						<label className="label p-2">
 							<span className="text-base label-text">Username</span>
 						</label>
 						<input 
 							type="text" placeholder="Enter username"
-							className="w-full input input-bordered h-10"
+							className="w-full input input-bordered h-10" 
+							value={username} 
+							onChange={(e) => setUsername(e.target.value)}
 						/ >
 					</div>
 					<div className="passwordContainer">
@@ -24,14 +38,18 @@ const Login = () => {
 						</label>
 						<input 
 							type="password" placeholder="Enter password"
-							className="w-full input input-bordered h-10"
+							className="w-full input input-bordered h-10" 
+							value={password} 
+							onChange={(e) => setPassword(e.target.value)}
 						/ >
 					</div>
 					<Link to="/signup" className="text-sm hove:underline hover:text-yellow-600 mt-2 inline-block">
 						Dont have an account?
 					</Link>
 					<div>
-						<button className="btn btn-block mt-3 btn-md">Login</button>
+						<button type="submit" className="btn btn-block mt-3 btn-md" disables={loading}>
+							{ loading ? <span className='loading loading-spinner'></span>: 'Login' }
+						</button>
 					</div>
 				</form>
 			</div>
