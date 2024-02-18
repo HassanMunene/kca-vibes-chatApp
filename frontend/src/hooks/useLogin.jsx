@@ -25,6 +25,7 @@ export const useLogin = () => {
 				},
 			})
 			const responseData = response.data;
+			console.log(responseData);
 			if (responseData.error) {
 				throw new Error(responseData.error);
 			}
