@@ -1,5 +1,6 @@
 import {useAuthContext} from '../../context/AuthContext';
 import {useConversationStore} from '../../zustandStore/useConversationStore';
+import {extractTime} from '../../utils/extractTime';
 
 const SingleMessage = ({message}) => {
     const {authUser} = useAuthContext();
@@ -8,7 +9,9 @@ const SingleMessage = ({message}) => {
     const isFromMe = message.senderId === authUser._id;
     const chatClassName = isFromMe ? 'chat-end' : 'chat-start';
     const profilePic = isFromMe ? authUser.profilePic : selectedConversation?.profilePic;
-    const bubbleBgColor = isFromMe ? 'bg-yellow-500' : '';
+    const bubbleBgColor = isFromMe ? 'bg-yellow-500' : 'bg-black';
+    const textColor = bubbleBgColor === 'bg-yellow-500' ? 'text-black' : 'text-white';
+    const formatedTime = extractTime(message.createdAt);
 
 
     return (
@@ -18,8 +21,8 @@ const SingleMessage = ({message}) => {
                     <img alt="Tailwind CSS chat bubble component" src={profilePic} />
                 </div>
             </div>
-            <div className={`chat-bubble text-black ${bubbleBgColor}`}>{message.message}</div>
-            <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">12:42</div>
+            <div className={`chat-bubble ${textColor} ${bubbleBgColor}`}>{message.message}</div>
+            <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">{formatedTime}</div>
         </div>
     )
 }
