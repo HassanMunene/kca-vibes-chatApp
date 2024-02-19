@@ -16,7 +16,12 @@ export const SocketContextProvider = ({children}) => {
 
     useEffect(() => {
         if(authUser) {
-            const socketConn = io("http://localhost:5000", {
+            // const socketConn = io("http://localhost:5000", {
+            //     query: {
+            //         userId: authUser._id,
+            //     }
+            // });
+            const socketConn = io("https://kcavibes.onrender.com/", {
                 query: {
                     userId: authUser._id,
                 }
