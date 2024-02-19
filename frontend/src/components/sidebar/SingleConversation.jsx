@@ -1,7 +1,11 @@
 import { useConversationStore } from '../../zustandStore/useConversationStore';
+import {useSocketContext} from '../../context/SocketContext';
 
 const SingleConversation = ({singleConversation, emoji, lastIndex}) => {
     const {selectedConversation, setSelectedConversation} = useConversationStore();
+    const {onlineUsers} = useSocketContext();
+
+    const isOnline = onlineUsers.includes(singleConversation._id);
 
     const isSelected = selectedConversation?._id === singleConversation._id;
     return (
@@ -10,7 +14,7 @@ const SingleConversation = ({singleConversation, emoji, lastIndex}) => {
                 className={`flex gap-2 items-center cursor-pointer hover:bg-sky-500 rounded p-2 py-1 ${isSelected ? "bg-sky-500": ""}`} 
                 onClick={() => setSelectedConversation(singleConversation)}
             >
-                <div className="avatar online">
+                <div className={`avatar ${isOnline ? 'online' : ''}`}>
                     <div className="w-12 rounded-full">
                         <img src={singleConversation.profilePic} />
                     </div>
