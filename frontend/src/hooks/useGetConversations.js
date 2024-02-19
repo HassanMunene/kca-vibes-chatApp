@@ -1,3 +1,9 @@
+/*
+this hooks get us all the user that we can chat with. or rather all the
+users that have regsitered with the application and therefore we can
+render them on the sidebar of our application.
+*/
+
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
