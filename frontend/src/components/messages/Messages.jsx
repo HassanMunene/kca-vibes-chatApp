@@ -1,10 +1,18 @@
+import {useRef, useEffect} from 'react';
 import SingleMessage from "./SingleMessage";
 import {useGetMessages} from '../../hooks/useGetMessages';
 import LoadingMessageSkeleton from '../loadingSkeleton/LoadingMessageSkeleton';
 
 const Messages = () => {
     const {loading, messages} = useGetMessages();
-    console.log(messages);
+    const lastMessageRef = useRef ();
+
+    useEffect(() => {
+        setTimeout(() => {
+            lastMessageRef.current?.scrollIntoView({ behaviour: "smooth"});
+        }, 100)
+    }, [messages])
+
     return (
         <div className="px-4 flex-1 overflow-auto">
             {loading && [...Array(3)].map((_, index) => <LoadingMessageSkeleton key={index}/>)}
@@ -14,8 +22,11 @@ const Messages = () => {
             )}
             
             {!loading && messages.length > 0 && (
-                messages.map((message) => <SingleMessage key={message._id} message={message}/>)
-            )}
+                messages.map((message) => (
+                    <div key={message._id} ref={lastMessageRef}>
+                        <SingleMessage message={message}/>
+                    </div>
+            )))}
         </div>
     )
 }
