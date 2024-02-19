@@ -1,19 +1,13 @@
 import SingleMessage from "./SingleMessage";
+import {useGetMessages} from '../../hooks/useGetMessages';
+import LoadingMessageSkeleton from '../loadingSkeleton/LoadingMessageSkeleton';
 
 const Messages = () => {
+    const {loading, messages} = useGetMessages();
+    console.log(messages);
     return (
         <div className="px-4 flex-1 overflow-auto">
-            <SingleMessage/>
-            <SingleMessage/>
-            <SingleMessage/>
-            <SingleMessage/>
-            <SingleMessage/>
-            <SingleMessage/>
-            <SingleMessage/>
-            <SingleMessage/>
-            <SingleMessage/>
-            <SingleMessage/>
-            <SingleMessage/>
+            {loading && [...Array(3)].map((_, index) => <LoadingMessageSkeleton key={index}/>)}
         </div>
     )
 }
