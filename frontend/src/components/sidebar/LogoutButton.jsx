@@ -9,6 +9,7 @@ const LogoutButton = () => {
                 className="w-6 h-6 text-white cursor-pointer" 
                 onClick={logout}
             />
+            Logout
         </div>
     )
 }
